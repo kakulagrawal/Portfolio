@@ -70,4 +70,35 @@ export const loginAdmin = async (req, res) => {
     });
   }
 };
-export const logoutAdmin = async (req, res) => {};
+export const getCurrentAdmin = async (req, res) => {
+  try {
+    res.status(200).json({
+      success: true,
+      admin: req.admin,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+export const logoutAdmin = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: false, // true in production
+      sameSite: "lax",
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Logout successful.",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
