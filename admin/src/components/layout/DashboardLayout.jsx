@@ -10,7 +10,9 @@ const DashboardLayout = ({ children }) => {
       <div className="absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/5 blur-[120px]" />
 
       {/* Sidebar */}
-      <Sidebar />
+      <div className="relative z-20">
+        <Sidebar />
+      </div>
 
       {/* Main */}
       <div className="relative z-10 flex flex-1 flex-col">

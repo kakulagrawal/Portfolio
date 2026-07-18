@@ -1,25 +1,41 @@
 import { createContext, useState, useEffect } from "react";
-import { login as loginService } from "../services/authService.js";
-import { getCurrentAdmin } from "../services/authService.js";
+import {
+  login as loginService,
+  logout as logoutService,
+  getCurrentAdmin,
+} from "../services/authService.js";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-
   const [admin, setAdmin] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const login = async (credentials) => {
     try {
       const data = await loginService(credentials);
+
       setAdmin(data.admin);
+
       return data;
     } catch (error) {
       throw error;
     }
   };
+
+  const logout = async () => {
+    try {
+      await logoutService();
+    } finally {
+      // Always clear frontend auth state
+      setAdmin(null);
+    }
+  };
+
   const checkAuth = async () => {
     try {
+      setLoading(true);
+
       const data = await getCurrentAdmin();
 
       setAdmin(data.admin);
@@ -29,6 +45,7 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     checkAuth();
   }, []);
@@ -37,11 +54,11 @@ const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         admin,
-        setAdmin,
         loading,
-        setLoading,
         login,
+        logout,
         checkAuth,
+        setAdmin,
       }}
     >
       {children}

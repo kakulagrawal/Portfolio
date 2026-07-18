@@ -1,9 +1,9 @@
-const Input = ({
+const Textarea = ({
   label,
   name,
-  type = "text",
   value,
   onChange,
+  rows = 5,
   placeholder = "",
   required = false,
 }) => {
@@ -17,18 +17,18 @@ const Input = ({
         {required && <span className="ml-1 text-red-400">*</span>}
       </label>
 
-      <input
+      <textarea
         id={name}
         name={name}
-        type={type}
+        rows={rows}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
         required={required}
-        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
+        className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
       />
     </div>
   );
 };
 
-export default Input;
+export default Textarea;

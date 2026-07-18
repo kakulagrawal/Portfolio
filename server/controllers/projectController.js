@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cloudinary from "../config/cloudinary.js";
 import fs from "fs";
 
+// Create Project
 export const createProject = async (req, res) => {
   try {
     const {
@@ -29,15 +30,25 @@ export const createProject = async (req, res) => {
       folder: "Portfolio_Projects",
     });
 
-    // Delete image from local uploads folder
-    fs.unlinkSync(req.file.path);
+    // Delete local uploaded file
+    if (fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
 
-    // Convert techStack string to array
-    const techStackArray = techStack
-      ? techStack.split(",").map((tech) => tech.trim())
-      : [];
+    // Parse tech stack
+    let techStackArray = [];
 
-    // Create project
+    if (techStack) {
+      try {
+        techStackArray = JSON.parse(techStack);
+      } catch {
+        techStackArray = techStack
+          .split(",")
+          .map((tech) => tech.trim())
+          .filter(Boolean);
+      }
+    }
+
     const project = await Project.create({
       title,
       description,
@@ -58,9 +69,8 @@ export const createProject = async (req, res) => {
       project,
     });
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
 
-    // Delete uploaded file if an error occurs before cleanup
     if (req.file?.path && fs.existsSync(req.file.path)) {
       fs.unlinkSync(req.file.path);
     }
@@ -72,7 +82,7 @@ export const createProject = async (req, res) => {
   }
 };
 
-//get all projects
+// Get All Projects
 export const getAllProjects = async (req, res) => {
   try {
     const projects = await Project.find().sort({ order: 1 });
@@ -92,10 +102,17 @@ export const getAllProjects = async (req, res) => {
   }
 };
 
-//get project by id
+// Get Project By ID
 export const getProjectById = async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid Project ID.",
+      });
+    }
 
     const project = await Project.findById(id);
 
@@ -120,9 +137,7 @@ export const getProjectById = async (req, res) => {
   }
 };
 
-
-
-// update project
+// Update Project
 export const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
@@ -155,42 +170,62 @@ export const updateProject = async (req, res) => {
       status,
     } = req.body;
 
+    if (!title || !description || !githubUrl) {
+      return res.status(400).json({
+        success: false,
+        message: "Please fill all required fields.",
+      });
+    }
+
     let image = project.image;
     let imagePublicId = project.imagePublicId;
+
+    // Replace image if new one uploaded
     if (req.file) {
-      // Upload new image
       const uploadResult = await cloudinary.uploader.upload(req.file.path, {
         folder: "Portfolio_Projects",
       });
 
-      // Delete local file
-      fs.unlinkSync(req.file.path);
+      if (fs.existsSync(req.file.path)) {
+        fs.unlinkSync(req.file.path);
+      }
 
-      // Delete old image from Cloudinary
       if (project.imagePublicId) {
         await cloudinary.uploader.destroy(project.imagePublicId);
       }
 
-      // Update image details
       image = uploadResult.secure_url;
       imagePublicId = uploadResult.public_id;
     }
-    const techStackArray = techStack
-      ? techStack.split(",").map((tech) => tech.trim())
-      : project.techStack;
-    project.title = title || project.title;
-    project.description = description || project.description;
+
+    // Parse tech stack
+    let techStackArray = project.techStack;
+
+    if (techStack) {
+      try {
+        techStackArray = JSON.parse(techStack);
+      } catch {
+        techStackArray = techStack
+          .split(",")
+          .map((tech) => tech.trim())
+          .filter(Boolean);
+      }
+    }
+
+    project.title = title;
+    project.description = description;
     project.image = image;
     project.imagePublicId = imagePublicId;
     project.techStack = techStackArray;
-    project.githubUrl = githubUrl || project.githubUrl;
-    project.liveUrl = liveUrl || project.liveUrl;
-    project.category = category || project.category;
-    project.featured = featured ?? project.featured;
-    project.order = order ?? project.order;
-    project.status = status || project.status;
+    project.githubUrl = githubUrl;
+    project.liveUrl = liveUrl;
+    project.category = category;
+    project.featured = featured;
+    project.order = order;
+    project.status = status;
 
     await project.save();
+
     return res.status(200).json({
       success: true,
       message: "Project updated successfully.",
@@ -199,13 +234,18 @@ export const updateProject = async (req, res) => {
   } catch (error) {
     console.error(error);
 
+    if (req.file?.path && fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
+
     return res.status(500).json({
       success: false,
       message: "Internal Server Error",
     });
   }
 };
-//delete project
+
+// Delete Project
 export const deleteProject = async (req, res) => {
   try {
     const { id } = req.params;
@@ -226,12 +266,10 @@ export const deleteProject = async (req, res) => {
       });
     }
 
-    // Delete image from Cloudinary
     if (project.imagePublicId) {
       await cloudinary.uploader.destroy(project.imagePublicId);
     }
 
-    // Delete project from MongoDB
     await Project.findByIdAndDelete(id);
 
     return res.status(200).json({
