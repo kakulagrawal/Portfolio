@@ -1,14 +1,12 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
+
 import connectDB from "./config/db.js";
 import authRouter from "./routes/authRoute.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
 import projectRouter from "./routes/projectRoute.js";
-
-
-dotenv.config();
 
 await connectDB();
 
