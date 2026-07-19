@@ -13,16 +13,11 @@ const Projects = () => {
   useEffect(() => {
 
     const fetchProjects = async () => {
-
       const data = await getProjects();
-
       setProjects(data);
 
     };
-
-
     fetchProjects();
-
   }, []);
 
 
@@ -66,9 +61,6 @@ const Projects = () => {
           px-6
         "
       >
-
-
-
         {/* Heading */}
 
         <motion.div

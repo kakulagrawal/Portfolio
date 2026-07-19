@@ -1,92 +1,174 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect } from "react";
 import { HiSparkles } from "react-icons/hi2";
 
-// 👇 Put your generated portrait inside:
-// src/assets/avatar.png
 import avatar from "../../assets/avatar.png";
 
-function HeroAvatar() {
+import GlowingRings from "./GlowingRings";
+import OrbitingIcons from "./OrbitingIcons";
+
+const HeroAvatar = () => {
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+
+  const springRotateX = useSpring(rotateX, {
+    stiffness: 120,
+    damping: 18,
+  });
+
+  const springRotateY = useSpring(rotateY, {
+    stiffness: 120,
+    damping: 18,
+  });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 16;
+      const y = (e.clientY / window.innerHeight - 0.5) * -16;
+
+      rotateX.set(y);
+      rotateY.set(x);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () =>
+      window.removeEventListener("mousemove", handleMouseMove);
+  }, [rotateX, rotateY]);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        y: [0, -10, 0],
-      }}
-      transition={{
-        opacity: { duration: 0.8 },
-        scale: { duration: 0.8 },
-        y: {
-          repeat: Infinity,
-          duration: 4,
-          ease: "easeInOut",
-        },
-      }}
-      className="relative flex items-center justify-center"
-    >
+    <div className="hero-avatar-wrapper relative flex items-center justify-center">
+
       {/* Background Glow */}
-      <div className="absolute h-[520px] w-[520px] rounded-full bg-cyan-500/10 blur-[120px]" />
-
-      {/* Outer Rotating Ring */}
       <motion.div
-        animate={{ rotate: 360 }}
-        transition={{
-          repeat: Infinity,
-          duration: 25,
-          ease: "linear",
+        animate={{
+          scale: [1, 1.12, 1],
+          opacity: [0.35, 0.8, 0.35],
         }}
-        className="absolute h-[420px] w-[420px] rounded-full border border-cyan-400/20"
-      >
-        <div className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 rounded-full bg-cyan-400 shadow-[0_0_30px_#22d3ee]" />
-      </motion.div>
-
-      {/* Inner Ring */}
-      <motion.div
-        animate={{ rotate: -360 }}
         transition={{
+          duration: 5,
           repeat: Infinity,
-          duration: 35,
-          ease: "linear",
+          ease: "easeInOut",
         }}
-        className="absolute h-[370px] w-[370px] rounded-full border border-indigo-500/20"
+        className="absolute h-[620px] w-[620px] rounded-full bg-cyan-400/10 blur-[130px]"
       />
 
+      {/* Holographic Rings */}
+      <GlowingRings />
+
+      {/* Orbiting Icons */}
+      <OrbitingIcons />
+
       {/* Avatar Card */}
-      <div className="relative overflow-hidden rounded-[36px] border border-white/10 bg-white/5 p-5 backdrop-blur-2xl shadow-[0_20px_80px_rgba(0,0,0,.35)]">
-        {/* Portrait */}
-        <div className="relative overflow-hidden rounded-[28px]">
-          <img
-            src={avatar}
-            alt="Kakul Agrawal"
-            className="h-[420px] w-[330px] object-cover"
+      <motion.div
+        style={{
+          rotateX: springRotateX,
+          rotateY: springRotateY,
+          transformPerspective: 1500,
+        }}
+        animate={{
+          y: [0, -15, 0],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="relative z-20"
+      >
+        <div className="glass-card card-shine relative overflow-hidden rounded-[36px] bg-white/5 p-5">
+
+          {/* Reflection */}
+          <motion.div
+            animate={{
+              x: [-420, 520],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              repeatDelay: 2,
+              ease: "easeInOut",
+            }}
+            className="absolute top-0 left-0 h-full w-24 -skew-x-12 bg-white/10 blur-xl"
           />
 
-          {/* Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-transparent" />
-        </div>
+          {/* Avatar */}
+          <div className="relative overflow-hidden rounded-[28px]">
 
-        {/* Bottom Info */}
-        <div className="absolute bottom-10 left-1/2 w-[85%] -translate-x-1/2 rounded-2xl border border-white/10 bg-slate-900/60 p-4 backdrop-blur-xl">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="font-['Space_Grotesk'] text-xl font-bold text-white">
-                Kakul
-              </h3>
+            <img
+              src={avatar}
+              alt="Kakul Agrawal"
+              draggable={false}
+              className="avatar-neon h-[460px] w-[340px] object-cover select-none"
+            />
 
-              <p className="mt-1 text-sm text-slate-400">
-                Full Stack Developer
-              </p>
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-transparent" />
 
-            <div className="rounded-full bg-cyan-400/10 p-3">
-              <HiSparkles className="text-cyan-300 text-xl" />
-            </div>
           </div>
+
+          {/* Available Badge */}
+          <motion.div
+            animate={{
+              y: [0, -5, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+            }}
+            className="floating-badge absolute left-5 top-5 flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 backdrop-blur-xl"
+          >
+            <span className="h-2.5 w-2.5 rounded-full rounded-full bg-emerald-400 shadow-[0_0_18px_#34d399]" />
+
+            <span className="text-sm font-medium text-white">
+              Available for Work
+            </span>
+          </motion.div>
+
+          {/* Bottom Info Card */}
+          <motion.div
+            whileHover={{
+              scale: 1.03,
+            }}
+            className="absolute bottom-7 left-1/2 w-[88%] -translate-x-1/2 rounded-2xl border border-white/10 bg-slate-900/55 p-5 backdrop-blur-2xl"
+          >
+            <div className="flex items-center justify-between">
+
+              <div>
+
+                <h3 className="font-['Space_Grotesk'] text-2xl font-bold text-white">
+                  Kakul Agrawal
+                </h3>
+
+                <p className="mt-1 text-sm text-slate-400">
+                  Full Stack Developer
+                </p>
+
+              </div>
+
+              <motion.div
+                animate={{
+                  rotate: [0, 20, -20, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                }}
+                className="rounded-full bg-cyan-400/10 p-4"
+              >
+                <HiSparkles className="text-2xl text-cyan-300" />
+              </motion.div>
+
+            </div>
+          </motion.div>
+
         </div>
-      </div>
-    </motion.div>
+
+        {/* Floating Shadow */}
+        <div className="hero-avatar-shadow" />
+      </motion.div>
+
+    </div>
   );
-}
+};
 
 export default HeroAvatar;

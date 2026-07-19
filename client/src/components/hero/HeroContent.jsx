@@ -1,131 +1,218 @@
 import { motion } from "framer-motion";
-import { FaArrowRight } from "react-icons/fa6";
-import Button from "../common/Button";
-import HeroStats from "./HeroStats";
-import HeroSocials from "./HeroSocials";
+import { Typewriter } from "react-simple-typewriter";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaInstagram,
+} from "react-icons/fa";
+import {
+  SiLeetcode,
+  SiGeeksforgeeks,
+  SiCodechef,
+} from "react-icons/si";
+import { HiSparkles } from "react-icons/hi2";
 
-function HeroContent() {
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.18,
+    },
+  },
+};
+
+const item = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut",
+    },
+  },
+};
+
+const HeroContent = () => {
   return (
-    <div className="max-w-2xl">
+    <motion.div
+      className="hero-content"
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
       {/* Badge */}
 
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="mb-8 inline-flex items-center gap-3 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-5 py-2 backdrop-blur-xl"
-      >
-        <span className="relative flex h-3 w-3">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+      <motion.div variants={item}>
+        <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-2 backdrop-blur-xl">
+          <HiSparkles className="text-cyan-300" />
 
-          <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-400" />
-        </span>
-
-        <span className="text-sm font-medium tracking-wide text-cyan-300">
-          Available for Work
-        </span>
+          <span className="text-sm tracking-wide text-cyan-200">
+            Available for Full Stack Opportunities
+          </span>
+        </div>
       </motion.div>
 
-      {/* Greeting */}
-
-      <motion.p
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="mb-5 text-lg font-medium text-cyan-400"
-      >
-        Hello, I'm
-      </motion.p>
-
-      {/* Name */}
+      {/* Heading */}
 
       <motion.h1
-        initial={{ opacity: 0, y: 35 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="font-['Space_Grotesk'] text-6xl font-bold leading-[0.95] md:text-7xl xl:text-8xl"
+        variants={item}
+        className="mt-8 text-5xl font-black leading-tight text-white lg:text-7xl"
       >
-        <span className="block text-white">Kakul</span>
-
-        <span className="block bg-gradient-to-r from-cyan-300 via-indigo-300 to-violet-400 bg-clip-text text-transparent">
-          Agrawal
+        Hi, I'm{" "}
+        <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-violet-400 bg-clip-text text-transparent">
+          Kakul Agrawal
         </span>
       </motion.h1>
 
-      {/* Headline */}
+      {/* Typewriter */}
 
-      <motion.h2
-        initial={{ opacity: 0, y: 35 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.35 }}
-        className="mt-10 max-w-xl font-['Space_Grotesk'] text-3xl font-bold leading-snug text-white md:text-4xl"
+      <motion.div
+        variants={item}
+        className="mt-6 text-2xl font-semibold text-violet-300 lg:text-3xl"
       >
-        Building scalable
-        <br />
-
-        <span className="text-cyan-300">
-          digital experiences.
-        </span>
-      </motion.h2>
+        <Typewriter
+          words={[
+            "Full Stack Developer",
+            "MERN Stack Developer",
+            "React Developer",
+            "Backend Developer",
+            "Problem Solver",
+          ]}
+          loop={0}
+          cursor
+          cursorStyle="|"
+          typeSpeed={70}
+          deleteSpeed={40}
+          delaySpeed={1700}
+        />
+      </motion.div>
 
       {/* Description */}
 
       <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="mt-8 max-w-xl text-lg leading-8 text-slate-400"
+        variants={item}
+        className="mt-8 max-w-xl text-lg leading-8 text-slate-300"
       >
-        Full Stack Developer passionate about crafting modern,
-        scalable, and high-performance web applications with
-        beautiful interfaces and robust backend architecture.
+        I build modern, scalable, and high-performance web applications using
+        the MERN stack. I enjoy creating beautiful user interfaces, writing
+        clean backend APIs, and solving real-world problems with code.
       </motion.p>
 
       {/* Buttons */}
 
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.65 }}
-        className="mt-12 flex flex-wrap gap-5"
+        variants={item}
+        className="mt-10 flex flex-wrap gap-5"
       >
-        <Button className="group rounded-2xl px-8 py-4">
+        <a
+          href="#projects"
+          className="rounded-xl bg-cyan-400 px-8 py-4 font-semibold text-slate-950 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(34,211,238,.45)]"
+        >
           View Projects
+        </a>
 
-          <FaArrowRight className="ml-3 transition-transform duration-300 group-hover:translate-x-1" />
-        </Button>
-
-        <Button
-          variant="secondary"
-          className="rounded-2xl px-8 py-4"
+        <a
+          href="#contact"
+          className="rounded-xl border border-cyan-400/40 bg-white/5 px-8 py-4 font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:bg-cyan-400 hover:text-slate-950"
         >
           Contact Me
-        </Button>
+        </a>
       </motion.div>
 
       {/* Stats */}
 
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="mt-16"
+        variants={item}
+        className="mt-12 flex flex-wrap gap-8"
       >
-        <HeroStats />
+        <div>
+          <h3 className="text-3xl font-bold text-cyan-300">10+</h3>
+          <p className="mt-1 text-slate-400">
+            Projects
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-3xl font-bold text-cyan-300">500+</h3>
+          <p className="mt-1 text-slate-400">
+            DSA Problems
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-3xl font-bold text-cyan-300">MERN</h3>
+          <p className="mt-1 text-slate-400">
+            Primary Stack
+          </p>
+        </div>
       </motion.div>
 
-      {/* Social */}
+      {/* Social Links */}
 
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.95 }}
-        className="mt-12"
+        variants={item}
+        className="mt-12 flex flex-wrap items-center gap-5"
       >
-        <HeroSocials />
+        <a
+          href="https://github.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
+        >
+          <FaGithub />
+        </a>
+
+        <a
+          href="https://linkedin.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
+        >
+          <FaLinkedin />
+        </a>
+
+        <a
+          href="https://instagram.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
+        >
+          <FaInstagram />
+        </a>
+
+        <a
+          href="https://leetcode.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
+        >
+          <SiLeetcode />
+        </a>
+
+        <a
+          href="https://www.geeksforgeeks.org/"
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
+        >
+          <SiGeeksforgeeks />
+        </a>
+
+        <a
+          href="https://www.codechef.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
+        >
+          <SiCodechef />
+        </a>
       </motion.div>
-    </div>
+    </motion.div>
   );
-}
+};
 
 export default HeroContent;
