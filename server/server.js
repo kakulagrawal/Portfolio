@@ -15,7 +15,11 @@ const PORT = process.env.PORT || 8000;
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://portfolio-client-opal-nine.vercel.app",
+      "https://portfolio-admin-taupe-nu.vercel.app",
+    ],
     credentials: true,
   })
 );
