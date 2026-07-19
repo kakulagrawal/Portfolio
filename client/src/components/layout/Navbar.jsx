@@ -141,11 +141,11 @@ function Navbar() {
             className="group flex items-center"
           >
             <span className="font-['Space_Grotesk'] text-3xl font-bold text-white transition duration-300 group-hover:text-cyan-300">
-              Kakul
+              KakulA
             </span>
 
             <span className="text-3xl font-bold text-cyan-400">
-              .
+              g
             </span>
           </button>
 
