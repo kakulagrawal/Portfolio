@@ -50,8 +50,12 @@ const ContactForm = () => {
         message: "",
       });
     } catch (error) {
-      console.error(error);
-      toast.error("Failed to send message. Please try again.");
+  console.error("EmailJS Error:", error);
+  console.log("Status:", error.status);
+  console.log("Text:", error.text);
+  console.log("Response:", error);
+  toast.error("Failed to send message.");
+
     } finally {
       setLoading(false);
     }
@@ -69,6 +73,7 @@ const ContactForm = () => {
       <h3 className="mb-8 text-3xl font-bold text-white">
         Send a Message
       </h3>
+      <br />
 
       <div className="space-y-6">
         <input

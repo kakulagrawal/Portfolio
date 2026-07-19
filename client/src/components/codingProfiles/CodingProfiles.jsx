@@ -24,10 +24,6 @@ const CodingProfiles = () => {
           transition={{ duration: 0.7 }}
           className="mx-auto mb-20 max-w-3xl text-center"
         >
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-cyan-400">
-            Coding Profiles
-          </p>
-
           <h2 className="text-4xl font-black leading-tight text-white md:text-5xl">
             Building Logic,
             <span className="block bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-400 bg-clip-text text-transparent">

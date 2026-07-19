@@ -36,9 +36,7 @@ const Contact = () => {
           transition={{ duration: 0.7 }}
           className="mx-auto mb-20 max-w-3xl text-center"
         >
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-cyan-400">
-            Contact
-          </p>
+         
 
           <h2 className="text-4xl font-black text-white md:text-5xl">
             Let's Work
@@ -46,6 +44,7 @@ const Contact = () => {
               Together
             </span>
           </h2>
+          <br /> 
 
           <p className="mt-6 text-lg leading-8 text-slate-400">
             Have an opportunity, project, or idea? Feel free to reach out.

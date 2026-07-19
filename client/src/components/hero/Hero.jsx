@@ -6,14 +6,15 @@ import "../../styles/Hero.css";
 
 const Hero = () => {
   return (
-    <section className="hero-section">
+    <section id="home"
+    className="hero-section">
       {/* Animated Background */}
       <HeroBackground />
 
       {/* Main Hero Layout */}
-      <div className="hero-wrapper flex gap-30">
+      <div className="hero-wrapper flex gap-20">
         {/* Left Content */}
-        <div className="hero-content">
+        <div className="hero-content ml-12">
           <HeroContent />
         </div>
 

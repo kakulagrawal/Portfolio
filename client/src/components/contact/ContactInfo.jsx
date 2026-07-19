@@ -58,6 +58,7 @@ const ContactInfo = () => {
       <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
         Contact Info
       </p>
+      <br />
 
       <h3 className="mb-4 text-3xl font-bold text-white">
         Let's Build Something Amazing
@@ -67,6 +68,7 @@ const ContactInfo = () => {
         Whether you have an opportunity, a freelance project, or just want to
         connect, I'd love to hear from you.
       </p>
+      <br />
 
       <div className="space-y-6">
         {contactDetails.map(({ icon: Icon, title, value, href }) => (

@@ -158,7 +158,7 @@ const HeroContent = () => {
         className="mt-12 flex flex-wrap items-center gap-5"
       >
         <a
-          href="https://github.com/"
+          href="https://github.com/kakulagrawal"
           target="_blank"
           rel="noreferrer"
           className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
@@ -167,7 +167,7 @@ const HeroContent = () => {
         </a>
 
         <a
-          href="https://linkedin.com/"
+          href="https://www.linkedin.com/in/kakul-agrawal-a379b3191/"
           target="_blank"
           rel="noreferrer"
           className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
@@ -176,7 +176,7 @@ const HeroContent = () => {
         </a>
 
         <a
-          href="https://instagram.com/"
+          href="https://www.instagram.com/kakul_agrawal_02/"
           target="_blank"
           rel="noreferrer"
           className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
@@ -185,7 +185,7 @@ const HeroContent = () => {
         </a>
 
         <a
-          href="https://leetcode.com/"
+          href="https://leetcode.com/u/KakulAgrawal/"
           target="_blank"
           rel="noreferrer"
           className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
@@ -194,7 +194,7 @@ const HeroContent = () => {
         </a>
 
         <a
-          href="https://www.geeksforgeeks.org/"
+          href="https://www.geeksforgeeks.org/profile/kakulagrcs4i"
           target="_blank"
           rel="noreferrer"
           className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
@@ -203,7 +203,7 @@ const HeroContent = () => {
         </a>
 
         <a
-          href="https://www.codechef.com/"
+          href="https://www.codechef.com/users/codedude_02"
           target="_blank"
           rel="noreferrer"
           className="rounded-full border border-white/10 bg-white/5 p-4 text-2xl text-white transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-400"
