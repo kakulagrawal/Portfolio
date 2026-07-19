@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-
-import Input from "../ui/Input";
-import Textarea from "../ui/Textarea";
+import Input from "../ui/Input.jsx";
+import Textarea from "../ui/Textarea.jsx";
 
 const categories = [
   "Web Development",
