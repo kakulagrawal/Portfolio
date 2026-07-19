@@ -106,7 +106,7 @@ const ContactForm = () => {
           className="w-full rounded-xl border border-white/10 bg-[#0B1120] px-5 py-4 text-white outline-none transition-all duration-300 placeholder:text-slate-500 focus:border-cyan-400"
         />
 
-        <textarea
+        <textArea
           rows={6}
           name="message"
           placeholder="Your Message"

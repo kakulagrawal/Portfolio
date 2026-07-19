@@ -17,7 +17,7 @@ const TextArea = ({
         {required && <span className="ml-1 text-red-400">*</span>}
       </label>
 
-      <textarea
+      <textArea
         id={name}
         name={name}
         rows={rows}

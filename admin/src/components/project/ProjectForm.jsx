@@ -129,7 +129,7 @@ const ProjectForm = ({
         required
       />
 
-      <Textarea
+      <TextArea
         label="Description"
         name="description"
         value={formData.description}
