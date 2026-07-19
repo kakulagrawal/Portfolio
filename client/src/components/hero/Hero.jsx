@@ -7,7 +7,7 @@ import "../../styles/Hero.css";
 const Hero = () => {
   return (
     <section id="home"
-    className="hero-section">
+      className="hero-section">
       {/* Animated Background */}
       <HeroBackground />
 
