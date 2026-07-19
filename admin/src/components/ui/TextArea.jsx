@@ -1,4 +1,4 @@
-const Textarea = ({
+const TextArea = ({
   label,
   name,
   value,
@@ -31,4 +31,4 @@ const Textarea = ({
   );
 };
 
-export default Textarea;
+export default TextArea;
